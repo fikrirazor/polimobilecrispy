@@ -1,54 +1,45 @@
-import React, { Component } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
+import ProductScreen from './components/ProductScreen';
+import ProductDetailsScreen from './components/ProductDetailsScreen';
+import ProductAddScreen from './components/ProductAddScreen';
+import ProductEditScreen from './components/ProductEditScreen';
 
-export default class ButtonBasics extends Component {
-  _onPressButton() {
-    alert('You tapped the button!')
-  }
+const RootStack = createStackNavigator(
+  {
+    Product: ProductScreen,
+    ProductDetails: ProductDetailsScreen,
+    AddProduct: ProductAddScreen,
+    EditProduct: ProductEditScreen,
+  },
+  {
+    initialRouteName: 'Product',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#777777',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  },
+);
 
+const RootContainer = createAppContainer(RootStack);
+
+export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Press Me"
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Press Me"
-            color="#841584"
-          />
-        </View>
-        <View style={styles.alternativeLayoutButtonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="This looks great!"
-          />
-          <Button
-            onPress={this._onPressButton}
-            title="OK!"
-            color="#841584"
-          />
-        </View>
-      </View>
-    );
+    return <RootContainer />;
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  buttonContainer: {
-    margin: 20
-  },
-  alternativeLayoutButtonContainer: {
-    margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
 });
